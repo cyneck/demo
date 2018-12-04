@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.algorithms.AnyBaseToAnyBase;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -78,12 +77,6 @@ public class HomeTest {
         byte[] bytes = string.getBytes();
         String s = new String(bytes);
         System.out.println(personIterator);
-    }
-
-    @Test
-    public void test() {
-        String[] arg = {"1", "3"};
-        AnyBaseToAnyBase.main(arg);
     }
 
 

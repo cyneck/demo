@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Package : com.example.demo.algorithms
- * Description : TODO @类注释说明写在此处@
+ * Description : 求数列的最大连续子数列之和
  * Create on : 2018/12/4 15:13 星期二
  *
  * @author Xingli.Li
@@ -18,13 +18,19 @@ public class KadaneAlgorithm {
      * This method implements Kadane's Algorithm
      *
      * @param arr The input array
-     * @return The maximum contiguous subarray sum of the array
+     * @return 求数列的最大连续子数列之和
      */
     static int largestContiguousSum(int arr[]) {
-        int i, len = arr.length, cursum = 0, maxsum = Integer.MIN_VALUE;
+        int len = arr.length;
+        int cursum = 0;
+        //int maxsum = Integer.MIN_VALUE;
+
         if (len == 0)    //empty array
+        {
             return 0;
-        for (i = 0; i < len; i++) {
+        }
+        int maxsum = arr[0];
+        for (int i = 0; i < len; i++) {
             cursum += arr[i];
             if (cursum > maxsum) {
                 maxsum = cursum;
@@ -44,9 +50,11 @@ public class KadaneAlgorithm {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n, arr[], i;
+        System.out.println("input number array length:");
         n = sc.nextInt();
         arr = new int[n];
         for (i = 0; i < n; i++) {
+            System.out.println("input each number in array:");
             arr[i] = sc.nextInt();
         }
         int maxContSum = largestContiguousSum(arr);
