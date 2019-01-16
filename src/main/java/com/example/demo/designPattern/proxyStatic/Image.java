@@ -1,4 +1,4 @@
-package com.example.demo.designPattern.proxy;
+package com.example.demo.designPattern.proxyStatic;
 
 /**
  * Package : com.example.demo.designPattern.proxyPattern
