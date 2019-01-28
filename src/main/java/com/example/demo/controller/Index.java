@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Person;
+import com.example.demo.rabbitMQ.AmqpComponent;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +23,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/index/*")
 public class Index extends AuthController {
+    @Autowired
+    private AmqpComponent amqpComponent;
+
     @ApiOperation(value = "", notes = "简单SpringMVC请求")
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String index() {
         throw new NullPointerException();
+    }
+
+
+    @ApiOperation(value = "", notes = "消息队列测试")
+    @RequestMapping(value = "mqTest", method = RequestMethod.GET)
+    public void mqTest() {
+        amqpComponent.send("hello world2");
     }
 }

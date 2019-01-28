@@ -23,6 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <lombok.version>1.16.20</lombok.version>
+        <docker.image.prefix>springboot</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -129,6 +130,12 @@
             <artifactId>junit-jupiter-api</artifactId>
         </dependency><!-- cglib 动态代理依赖 stop -->
 
+        <!-- amqp -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -137,6 +144,35 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--用mvn来配置 Docker maven plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <dockerHost>http://192.168.88.133:2375</dockerHost>
+                    <volumes>/tmp</volumes>
+                    <exposes>8000</exposes>
+                    <baseImage>openjdk:8-jdk-alpine</baseImage>
+                    <maintainer>Eric</maintainer>
+                    <volumes>/tmp</volumes>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <entryPoint>["java","-jar","/app.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <!-- Docker maven plugin -->
         </plugins>
     </build>
 
