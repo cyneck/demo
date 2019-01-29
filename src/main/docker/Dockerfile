@@ -12,6 +12,8 @@ VOLUME /tmp
 COPY *.jar app.jar
 # ENV：设置环境变量，环境变量可被后面的指令使用,例如：ENV MY_VERSION 1.3 \ RUN apt-get install -y mypackage=$MY_VERSION
 # EXPOSE：指定容器中的进程会监听某个端口，Docker 可以将该端口暴露出来。
+# 此处需要在 docker run 的时候使用-p或者-P选项生效，例如：docker run --name springboot-demo -d -p 8000:8080 <imageName:version>
+#tomcat运行默认是8080端口，为了方便，在新建容器时，需要手动绑定主机8000端口到容器的8080端口
 EXPOSE 8000
 # ENTRYPOINT：设置容器启动时运行的命令。
 ENTRYPOINT ["java","-jar","/app.jar"]
