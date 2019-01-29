@@ -33,7 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/endpoint")
                 .withSockJS();
-
+        // withSockJS()表示支持socktJS访问，在浏览器中使用
         registry.addEndpoint("/websocket")
                 .setAllowedOrigins("*")//添加允许跨域访问
                 .withSockJS();
