@@ -1,5 +1,6 @@
 package com.example.demo.aopJdk;
 
+import javax.print.attribute.standard.Finishings;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -22,7 +23,7 @@ public class JDKDynamicProxyGenerator {
      * @param aspect      切面对象,该对象方法将在切点方法之前或之后执行
      * @return
      */
-    public static Object generatorJDKProxy(IUserService targetPoint, final IAspect aspect) {
+    public static Object generatorJDKProxy(final IUserService targetPoint, final IAspect aspect) {
         InvocationHandler invocationHandler = new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
