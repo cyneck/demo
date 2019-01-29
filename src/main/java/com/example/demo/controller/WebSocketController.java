@@ -26,41 +26,36 @@ public class WebSocketController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+    //跳转到index页面
     @RequestMapping("/index")
     public String index() {
         return "index";
     }
 
+    //跳转到index2页面
     @RequestMapping("/index2")
     public String index2() {
         return "index2";
     }
 
+    //发送到指定的用户
     @ResponseBody
-    @RequestMapping("/test/{userid}")
-    public String test(@PathVariable("userid") String userid, RequestMessageModel msg) {
-        this.messagingTemplate.convertAndSendToUser(userid, "/message", msg.getMessage());//" /user/123/message "
+    @RequestMapping("/send/{userid}")
+    public String send(@PathVariable("userid") String userid) {
+        this.messagingTemplate.convertAndSendToUser(userid, "/message", "发发发");
         return "发送成功！";
     }
 
-    //  "/app/welcome
-    @MessageMapping("/welcome")
-    public ResponseMessageModel toTopic(RequestMessageModel msg) throws Exception {
-        System.out.println("======================" + msg.getMessage());
-        this.messagingTemplate.convertAndSend("/api/v1/socket/send", msg.getMessage());
-
-        this.messagingTemplate.convertAndSend("/topic/send", msg.getMessage());
-
-        return new ResponseMessageModel("欢迎使用webScoket：" + msg.getMessage());
-    }
-
-    @MessageMapping("/message")
+    //浏览器端，发送到后端的映射路径
+    @MessageMapping("/toUser")
     public ResponseMessageModel toUser(RequestMessageModel msg) {
-        System.out.println("----------------" + msg.getMessage());
+        System.out.println("----------------/toUser" + msg.getMessage());
 
-        this.messagingTemplate.convertAndSendToUser(msg.getUserid().toString(), "/message", msg.getMessage());
-        this.messagingTemplate.convertAndSendToUser(msg.getToUserId().toString(), "/message", msg.getMessage());
+        //即@SendTo()，浏览器端，订阅路径，此处带为点对点层级的
+        this.messagingTemplate.convertAndSendToUser(msg.getToUserId(), "/message", msg.getMessage());
 
-        return new ResponseMessageModel("欢迎使用webScoket：" + msg.getMessage());
+//        this.messagingTemplate.convertAndSendToUser(msg.getUserid(), "/message", msg.getMessage());
+
+        return new ResponseMessageModel(msg.getMessage());
     }
 }

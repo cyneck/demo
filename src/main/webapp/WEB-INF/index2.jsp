@@ -19,6 +19,9 @@
 <script>
     var stompClient = null;
 
+    userId1 = 123;
+    userId2 = 234;
+
     //设置连接状态控制显示隐藏
     function setConnected(connected) {
         $("#connect").attr("disabled", connected);
@@ -39,14 +42,13 @@
             setConnected(true);
             console.log("connected : " + frame);
 
-            stompClient.subscribe('/user/' + 1234 + '/message', function (response) {
-                showResponse("我说：" + response.body);
-            })
+            stompClient.subscribe('/user/' + userId2 + '/message', function (response) {
+                showResponse(userId2 + "发送到" + userId1 + ":" + response.body);
+            });
 
-            stompClient.subscribe('/user/' + 123 + '/message2', function (response) {
-                showResponse("他说：" + response.body);
-            })
-
+            stompClient.subscribe('/topic/getResponse', function (response) {
+                showResponse("插播广告消息：" + response.body);
+            });
 
         })
     }
@@ -60,10 +62,10 @@
         console.log("disconnected!");
     }
 
-    //发送名称到后台
+    //发送名称到后台，对应后台的@MessageMapping，
     function sendName() {
         var name = $("#name").val();
-        stompClient.send("/app/message", {}, JSON.stringify({'message': name, 'userid': 1234, "toUserId": 123}));
+        stompClient.send("/app/toUser", {}, JSON.stringify({'message': name, 'userid': userId2, "toUserId": userId1}));
     }
 
     //显示socket返回消息内容

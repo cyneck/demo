@@ -16,8 +16,8 @@ public class RequestMessageModel {
      * 请求消息
      */
     private String message;
-    private Long userid;
-    private Long toUserId;
+    private String userid;
+    private String toUserId;
 
     public String getMessage() {
         return message;
@@ -27,19 +27,19 @@ public class RequestMessageModel {
         this.message = message;
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
-    public Long getToUserId() {
+    public String getToUserId() {
         return toUserId;
     }
 
-    public void setToUserId(Long toUserId) {
+    public void setToUserId(String toUserId) {
         this.toUserId = toUserId;
     }
 }

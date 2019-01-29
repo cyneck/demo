@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>WebScoket广播式</title>
+    <title>WebScoket广播室</title>
     <script src="/sockjs.js"></script>
     <script src="/stomp.js"></script>
     <script src="/jquery.js"></script>
@@ -18,6 +18,9 @@
 </div>
 <script>
     var stompClient = null;
+
+    userId1 = 123;
+    userId2 = 234;
 
     //设置连接状态控制显示隐藏
     function setConnected(connected) {
@@ -39,20 +42,15 @@
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log("connected : " + frame);
-            //subscribe订阅。123为用户id
-            stompClient.subscribe('/user/' + 123 + '/message', function (response) {
-                showResponse("我说---》" + response.body);
-            })
-            stompClient.subscribe('/user/' + 1234 + '/message', function (response) {
-                showResponse("他说：---》" + response.body);
-            })
+            // 根据不同的用户自行进行路由判断
+            //subscribe订阅 ,123的用户的消息的订阅路径 /message
+            stompClient.subscribe('/user/' + userId1 + "/message", function (response) {
+                showResponse(userId1 + "发送到" + userId2 + ":" + response.body);
+            });
 
             stompClient.subscribe('/topic/getResponse', function (response) {
-                showResponse("广播说：---》" + response.body);
-            })
-            stompClient.subscribe('/topic/send', function (response) {
-                showResponse("广播说：---》" + response.body);
-            })
+                showResponse("topic插播广告消息：" + response.body);
+            });
         })
     }
 
@@ -68,7 +66,7 @@
     //发送名称到后台
     function sendName() {
         var name = $("#name").val();
-        stompClient.send("/app/message", {}, JSON.stringify({'message': name, 'userid': 123, "toUserId": 1234}));
+        stompClient.send("/app/toUser", {}, JSON.stringify({'message': name, 'userid': userId1, "toUserId": userId2}));
     }
 
     //显示socket返回消息内容

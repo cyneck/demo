@@ -26,16 +26,17 @@ public class BroadcastSocketController {
     private SimpMessagingTemplate messagingTemplate;
 
 
+    //跳转到topic页面
     @RequestMapping("/topic")
     public String topic() {
         return "topic";
     }
 
 
-    @MessageMapping("/welcomeTopic")//浏览器发送请求通过@messageMapping 映射/welcome 这个地址。
-    @SendTo("/topic/getResponse")//服务器端有消息时,会订阅@SendTo 中的路径的浏览器发送消息。
-    public ResponseMessageModel say(RequestMessageModel message) throws Exception {
-        System.out.println("发送信息-----------------------" + message.getMessage());
+    @MessageMapping("/welcomeTopic")//url请求映射进来
+    @SendTo("/topic/getResponse")//向订阅@SendTo 中的路径的浏览器，发送消息。
+    public ResponseMessageModel getResponse(RequestMessageModel message) {
+        System.out.println("发送信息-----------------------/welcome -----to-------/topic/getResponse" + message.getMessage());
         return new ResponseMessageModel("Welcome, " + message.getMessage() + "!");
     }
 }

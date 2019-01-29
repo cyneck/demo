@@ -11,7 +11,7 @@
 <noscript><h2 style="color: #ff0000">貌似你的浏览器不支持websocket</h2></noscript>
 <div>
     <div>
-        <button id="connect" onclick="connect();">连接</button>
+        <button id="connect" onclick="connect();">topic广播订阅连接</button>
         <button id="disconnect" disabled="disabled" onclick="disconnect();">断开连接</button>
     </div>
     <div id="conversationDiv">
@@ -32,13 +32,13 @@
     }
 
     function connect() {
-        debugger;
-        var socket = new SockJS('/endpointWisely'); //链接SockJS 的endpoint 名称为"/endpointWisely"
+        //链接SockJS 的endpoint 名称为"/endpoint"
+        var socket = new SockJS('/endpoint');
         stompClient = Stomp.over(socket);//使用stomp子协议的WebSocket 客户端
         stompClient.connect({}, function (frame) {//链接Web Socket的服务端。
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/getResponse', function (respnose) { //订阅/topic/getResponse 目标发送的消息。这个是在控制器的@SendTo中定义的。
+            stompClient.subscribe('/topic/getResponse', function (respnose) { //订阅/topic/getResponse 发送的消息。这个是在控制器的@SendTo中定义的。
                 console.log("收到信息--" + respnose.body);
                 debugger;
                 showResponse(JSON.parse(respnose.body).message);
@@ -57,7 +57,6 @@
 
     function sendName() {
         var name = $('#name').val();
-        debugger;
         //通过stompClient.send 向/welcome 目标 发送消息,这个是在控制器的@messageMapping 中定义的。
         stompClient.send("/app/welcomeTopic", {}, JSON.stringify({'message': name}));
     }
