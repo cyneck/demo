@@ -2,13 +2,8 @@ package com.example.demo.designPattern.proxyDynamicCglib;
 
 import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.Enhancer;
-import org.junit.jupiter.api.Test;
-import sun.misc.ProxyGenerator;
 
-import java.io.FileOutputStream;
 import java.lang.reflect.Field;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -23,8 +18,8 @@ import java.util.Properties;
  * -------------------------------------------
  **/
 public class CglibTest {
-    @Test
-    public void testCglib() throws Exception {
+
+    public static void main(String[] arg) throws Exception {
 
         /* 开启 保存cglib生成的动态代理类类文件*/
         saveGeneratedCGlibProxyFiles(System.getProperty("user.dir"));
@@ -56,7 +51,7 @@ public class CglibTest {
      *
      * @throws Exception
      */
-    public void saveGeneratedCGlibProxyFiles(String dir) throws Exception {
+    public static void saveGeneratedCGlibProxyFiles(String dir) throws Exception {
         Field field = System.class.getDeclaredField("props");
         field.setAccessible(true);
         Properties props = (Properties) field.get(null);

@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/index/*")
 public class Index extends AuthController {
-    @Autowired
-    private AmqpComponent amqpComponent;
+
 
     @ApiOperation(value = "", notes = "简单SpringMVC请求")
     @RequestMapping(value = "test", method = RequestMethod.GET)
@@ -36,6 +35,6 @@ public class Index extends AuthController {
     @ApiOperation(value = "", notes = "消息队列测试")
     @RequestMapping(value = "mqTest", method = RequestMethod.GET)
     public void mqTest() {
-        amqpComponent.send("hello world2");
+
     }
 }

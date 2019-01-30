@@ -1,7 +1,5 @@
 package com.example.demo.aopJdk;
 
-import org.junit.jupiter.api.Test;
-
 /**
  * Package : com.example.demo.aop
  * Description : TODO
@@ -14,8 +12,8 @@ import org.junit.jupiter.api.Test;
  * -------------------------------------------
  **/
 public class testAopJDKProxy {
-    @Test
-    public void testJDKProxy() throws Exception {
+
+    static void main(String[] args) throws Exception {
         System.out.println("无代理前 调用方法 userService.saveUser 输出......");
         IUserService userService = new UserServiceImpl();
         userService.saveUser("xl", "1234567890");

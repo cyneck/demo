@@ -48,7 +48,7 @@ public class HomeTest {
         personList.add(new Person(4, "张六", "man", 22));
         personList.add(new Person(4, "张七", "woman", 22));
         Collections.sort(personList);
-        personList.sort(Comparator.reverseOrder());
+//        personList.sort(Comparator.reverseOrder());
         /*迭代器过滤*/
         Iterator<Person> personIterator = personList.iterator();
         while (personIterator.hasNext()) {

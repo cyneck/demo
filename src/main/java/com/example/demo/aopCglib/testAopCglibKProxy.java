@@ -1,7 +1,5 @@
 package com.example.demo.aopCglib;
 
-import org.junit.jupiter.api.Test;
-
 /**
  * Package : com.example.demo.aopCglib
  * Description : TODO
@@ -13,9 +11,10 @@ import org.junit.jupiter.api.Test;
  * 修改人 | 修改日期 | 修改描述
  * -------------------------------------------
  **/
+
 public class testAopCglibKProxy {
-    @Test
-    public void testCglibProxy() {
+
+    public static void main(String[] args) {
         System.out.println("before Proxy......");
         UserServiceImpl userService = new UserServiceImpl();
         userService.saveUser("xl", "123");

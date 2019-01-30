@@ -11,7 +11,7 @@ package com.example.demo.designPattern.proxyDynamicJdk;
  * 修改人 | 修改日期 | 修改描述
  * -------------------------------------------
  **/
-public class SoftwareEngineer implements Person {
+public class SoftwareEngineer implements People {
     public SoftwareEngineer() {
     }
 

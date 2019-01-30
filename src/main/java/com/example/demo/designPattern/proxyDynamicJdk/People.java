@@ -11,7 +11,7 @@ package com.example.demo.designPattern.proxyDynamicJdk;
  * 修改人 | 修改日期 | 修改描述
  * -------------------------------------------
  **/
-public interface Person {
+public interface People {
 
     /* *
      *@param name 人名
