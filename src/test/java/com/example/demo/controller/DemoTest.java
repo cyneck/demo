@@ -8,7 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Package : com.example.demo.controller
@@ -42,5 +44,39 @@ public class DemoTest {
         treeSet.add("D");
         Assert.assertTrue("A", treeSet.first().equals("A"));
 
+    }
+
+
+    @Test
+    public void MapTest() {
+        Map<Long, String> conMap = new ConcurrentHashMap(15);
+        for (long i = 0; i < 15; i++) {
+            conMap.put(i, i + "");
+        }
+        for (Map.Entry<Long, String> entry : conMap.entrySet()) {
+            long key = entry.getKey();
+            if (key < 10) {
+                conMap.remove(key);
+            }
+        }
+    }
+
+    /**
+     * String是被final修复的引用类型
+     */
+    @Test
+    public void StringTest() {
+        //int是4字节大小的有符值类型，数据范围是-2^31至2^31
+        int maxValue = Integer.MAX_VALUE;
+        int minValue = Integer.MIN_VALUE;
+
+        String a = "123";
+        String b = a;
+        a = "Eric";
+        char[] stringA = {'e', 'r', 'i', 'c'};
+        char[] stringB = stringA;
+        stringA[0] = 'E';
+
+        System.out.println(stringB);
     }
 }
