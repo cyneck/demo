@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
-import static javafx.scene.AccessibleAttribute.ROLE;
+import static com.example.demo.auth.JwtUtil.ROLE;
+
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final PathMatcher pathMatcher = new AntPathMatcher();
