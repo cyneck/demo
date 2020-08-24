@@ -37,11 +37,15 @@ public class AlphabetCalculate {
             }
         }
         System.out.println("sum:" + sum);
+//        System.out.println("sum:" + FromNumberSystem26("cb"));
+//        System.out.println("sum:" + ToNumberSystem26(53));
+        System.out.println("sum:" + ToNumberSystem26(sum));
     }
 
 
     /**
      * 将指定的26进制表示转换为自然数。映射关系：[a-z] ->[0-25]。
+     * cb  ->  c*26^1+b*26^0   -> 2*26^1+ 1*26^0 = 53
      *
      * @param s
      * @return
@@ -63,6 +67,7 @@ public class AlphabetCalculate {
 
     /**
      * 将指定的自然数转换为26进制表示。映射关系：[0-25] ->[a-z]
+     * 取余数法：整数%进制大小，得余数，由下到上组成即为对应进制数值
      *
      * @param n
      * @return
@@ -71,8 +76,10 @@ public class AlphabetCalculate {
         String s = "";
         while (n > 0) {
             int m = n % 26;
-            if (m == 0) m = 26;
-            s = (char) (m + 64) + s;
+            if (m == 0) {
+                m = 26;
+            }
+            s = (char) (m + 97) + s;
             n = (n - m) / 26;
         }
         return s;
