@@ -37,8 +37,8 @@ public class AlphabetCalculate {
             }
         }
         System.out.println("sum:" + sum);
-//        System.out.println("sum:" + FromNumberSystem26("cb"));
-//        System.out.println("sum:" + ToNumberSystem26(53));
+        System.out.println("sum:" + FromNumberSystem26("cb"));
+        System.out.println("sum:" + ToNumberSystem26(53));
         System.out.println("sum:" + ToNumberSystem26(sum));
     }
 
@@ -56,6 +56,7 @@ public class AlphabetCalculate {
         }
         int n = 0;
         for (int i = s.length() - 1, j = 1; i >= 0; i--, j *= 26) {
+//            i为字符串的索引，j为周期[1,26,52...]
             char c = s.charAt(i);
             if (c < 'a' || c > 'z') {
                 return 0;
@@ -75,12 +76,13 @@ public class AlphabetCalculate {
     public static String ToNumberSystem26(int n) {
         String s = "";
         while (n > 0) {
-            int m = n % 26;
+            int m = n % 26; //求得余数
             if (m == 0) {
                 m = 26;
             }
             s = (char) (m + 97) + s;
-            n = (n - m) / 26;
+
+            n = n / 26;  //求模大小
         }
         return s;
     }
