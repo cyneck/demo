@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * <p>Description: 多线程池 </p>
@@ -69,13 +70,16 @@ public class MultiThreadPool extends Thread {
 
     //提交任务
     public void submit(Runnable runnable) {
+        ExecutorService executor = new ThreadPoolExecutor(4, 8, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         if (destroy) {
             throw new IllegalStateException("The thread pool already destroy and not allow submit task.");
         }
         synchronized (TASK_QUEUE) {
             if (TASK_QUEUE.size() > queueSize)
-                //超过队列大小的任务，直接跑出异常
+            //超过队列大小的任务，直接跑出异常
+            {
                 discardPolicy.discard();
+            }
             TASK_QUEUE.addLast(runnable);
             TASK_QUEUE.notifyAll();
         }
@@ -114,8 +118,9 @@ public class MultiThreadPool extends Thread {
                         System.out.println("=========Reduce========");
                         int releaseSize = size - corePoolSize;
                         for (Iterator<Worker> it = THREAD_COLLECTION.iterator(); it.hasNext(); ) {
-                            if (releaseSize <= 0)
+                            if (releaseSize <= 0) {
                                 break;
+                            }
                             Worker worker = it.next();
                             if (worker.getTaskState() == TaskState.BLOCKED) {
                                 worker.close();
