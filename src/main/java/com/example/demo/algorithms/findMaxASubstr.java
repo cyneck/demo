@@ -12,9 +12,11 @@ import java.util.Scanner;
 public class findMaxASubstr {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String firstLine = scanner.nextLine();
-//        String firstLine = "asdbuiodevauufgh";
-        System.out.println(findMaxASubstr(firstLine));
+        //        String firstLine = "asdbuiodevauufgh";
+        while (scanner.hasNext()) {
+            String firstLine = scanner.nextLine();
+            System.out.println(findMaxASubstr(firstLine));
+        }
     }
 
     public static int findMaxASubstr(String word) {
