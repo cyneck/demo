@@ -5,7 +5,10 @@ import java.util.Map;
 
 /**
  * Package : com.example.demo.algorithms
- * Description : 斐波那契额数列
+ * Description : 斐波那契额数列，求第n个值是多少？
+ * F(n) = n; n = 0,1
+ * F(n) = F(n-1) + F(n-2),n >= 2;
+ * 例如：0，1，1，2，3，5，8...
  * Create on : 2018/12/4 16:12 星期二
  *
  * @author Xingli.Li
@@ -16,63 +19,106 @@ import java.util.Map;
  **/
 public class Fibonacci {
 
-    private static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-
     public static void main(String[] args) throws Exception {
 
         StringBuilder resultStr1 = new StringBuilder();
         StringBuilder resultStr2 = new StringBuilder();
         StringBuilder resultStr3 = new StringBuilder();
         for (int n = 1; n <= 10; n++) {
-            //使用HashMap存储数列
-            fibMemo(n);
-            resultStr1.append(fibBotUp(n) + ",");
+            resultStr1.append(getFibonacci(n) + ",");
 
-            resultStr2.append(fibOptimized(n) + ",");
+            resultStr2.append(getFibOptimized(n) + ",");
 
-            int fibonacci = getFibonacci(n);
-            resultStr3.append(fibonacci + ",");
+            resultStr3.append(getFibonacciMemo(n) + ",");
         }
-        System.out.println("使用Map存储斐波那契数列：");
-        System.out.println(resultStr1.toString());
-        System.out.println("使用递归实现斐波那契数列：");
-        System.out.println(resultStr2.toString());
-        System.out.println("使用递归公式实现斐波那契数列：");
+        System.out.println("使用递归公式：");
         System.out.println(resultStr3.toString());
+        System.out.println("使用循环迭代：");
+        System.out.println(resultStr2.toString());
+        System.out.println("使用Map存储值：");
+        System.out.println(resultStr1.toString());
+
 
     }
 
     /**
-     * 记住第n个斐波那契数列
+     * 斐波纳切数列
+     * 递归版，根据递推公式
+     * 缺点：时间复杂度高
      *
      * @param n
      * @return
      */
-    private static int fibMemo(int n) {
-        if (map.containsKey(n)) {
-            return map.get(n);
-        }
-
-        int f;
-
-        if (n <= 2) {
-            f = 1;
+    private static int getFibonacci(int n) {
+        if (n <= 1) {
+            return n;
         } else {
-            f = fibMemo(n - 1) + fibMemo(n - 2);
-            map.put(n, f);
+            return getFibonacci(n - 1) + getFibonacci(n - 2);
         }
-
-        return f;
     }
 
     /**
-     * 自下而上的方法找到第n个斐波纳契数
+     * 斐波纳切数列
+     * 采用循环迭代解法，逐个前后相加求和
+     * 时间复杂度为O(n)
+     *
+     * @param n
+     * @return
+     */
+    private static int getFibOptimized(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        int prev = 0, current = 1, next;
+        n++;
+        //从n=2开始循环求和
+        for (int i = 2; i < n; i++) {
+            next = prev + current;
+            prev = current;
+            current = next;
+        }
+        return current;
+    }
+
+
+    //存储对象
+    private static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+    private static int getFibonacciMemo(int n) {
+        getFibona(n);
+        return fibBotUp(n);
+    }
+
+    /**
+     * 斐波那契数列
+     * 记住第n个，规避重复递归计算
+     *
+     * @param n
+     * @return
+     */
+    private static int getFibona(int n) {
+        if (map.containsKey(n)) {
+            return map.get(n);
+        }
+        int f;
+        if (n <= 2) {
+            f = 1;
+        } else {
+            f = getFibona(n - 1) + getFibona(n - 2);
+            map.put(n, f);
+        }
+        return f;
+    }
+
+
+    /**
+     * 斐波纳契数
+     * 自下而上查找
      *
      * @param n
      * @return
      */
     private static int fibBotUp(int n) {
-
         Map<Integer, Integer> fib = new HashMap<Integer, Integer>();
 
         for (int i = 1; i < n + 1; i++) {
@@ -84,45 +130,8 @@ public class Fibonacci {
             }
             fib.put(i, f);
         }
-
         return fib.get(n);
     }
 
 
-    /**
-     * 自下而上的方法找到第n个斐波纳契数，采用递归方式
-     *
-     * @param n The input n for which we have to determine the fibonacci number
-     *          Outputs the nth fibonacci number
-     *          <p>
-     *          This is optimized version of Fibonacci Program. Without using Hashmap and recursion.
-     *          It saves both memory and time.
-     *          Space Complexity will be O(1)
-     *          Time Complexity will be O(n)
-     *          <p>
-     *          Whereas , the above functions will take O(n) Space.
-     * @author Shoaib Rayeen (https://github.com/shoaibrayeen)
-     **/
-    private static int fibOptimized(int n) {
-
-        if (n == 0) {
-            return 0;
-        }
-        n++;
-        int prev = 0, res = 1, next;
-        for (int i = 2; i < n; i++) {
-            next = prev + res;
-            prev = res;
-            res = next;
-        }
-        return res;
-    }
-
-    private static int getFibonacci(int n) {
-        if (n <= 1) {
-            return n;
-        } else {
-            return getFibonacci(n - 1) + getFibonacci(n - 2);
-        }
-    }
 }

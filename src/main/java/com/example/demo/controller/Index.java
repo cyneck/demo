@@ -44,7 +44,7 @@ public class Index extends AuthController {
 
     }
 
-    @ApiOperation(value = "", notes = "消息队列测试")
+    @ApiOperation(value = "", notes = "login")
     @PostMapping("/login")
     public Object login(HttpServletResponse response,
                         @RequestBody Account account) {

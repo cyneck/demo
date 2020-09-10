@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.aop.annotation.OperationLogDetail;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import io.swagger.annotations.Api;
@@ -31,6 +32,7 @@ public class Home {
     @Autowired
     private PersonService personService;
 
+    @OperationLogDetail
     @Valid
     @ApiOperation(value = "index", notes = "简单SpringMVC请求")
     @RequestMapping(value = "index", method = RequestMethod.GET)

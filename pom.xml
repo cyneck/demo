@@ -156,11 +156,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+        <!--jwt-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>5.1.4.RELEASE</version>
-            <scope>compile</scope>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.2.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
 
@@ -200,11 +219,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <!--用mvn来配置 Docker maven plugin -->
-            <plugin>
+            <!--<plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
-                <!--插件绑定到phase,install时即开始docker build-->
+                &lt;!&ndash;插件绑定到phase,install时即开始docker build&ndash;&gt;
                 <executions>
                     <execution>
                         <phase>install</phase>
@@ -215,7 +234,7 @@
                 </executions>
                 <configuration>
                     <dockerHost>http://192.168.88.133:2375</dockerHost>
-                    <!--如果dockerDirectory指定，baseImage, maintainer，entryPoint将被忽略,此处结合Dockerfile进行灵活构建-->
+                    &lt;!&ndash;如果dockerDirectory指定，baseImage, maintainer，entryPoint将被忽略,此处结合Dockerfile进行灵活构建&ndash;&gt;
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <imageTags>
@@ -230,7 +249,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <!-- Docker maven plugin -->
         </plugins>
     </build>
