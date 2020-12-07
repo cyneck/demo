@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 修改人 | 修改日期 | 修改描述
  * -------------------------------------------
  **/
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 ////由于是Web项目，Junit需要模拟ServletContext，因此我们需要给我们的测试类加上@WebAppConfiguration。
 //@WebAppConfiguration
 public class DemoTest {
