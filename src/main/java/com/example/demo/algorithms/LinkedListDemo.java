@@ -22,6 +22,7 @@ public class LinkedListDemo {
 
         Node item = data2.get(3);
         System.out.println(item);
+        System.out.println(data2.get(0));
 
 
     }
