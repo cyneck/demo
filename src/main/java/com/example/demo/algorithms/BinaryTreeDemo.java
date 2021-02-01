@@ -12,7 +12,8 @@ import java.util.List;
  **/
 public class BinaryTreeDemo {
 
-    List datas = new ArrayList<BinaryTree>();
+    //    存节点
+    public static List<BinaryTree> datas;
 
     public static void main(String[] args) {
         BinaryTree bintree = new BinaryTree();
@@ -26,9 +27,6 @@ public class BinaryTreeDemo {
         private BinaryTree root;
         private BinaryTree left;
         private BinaryTree right;
-
-        //    存节点
-        public List<BinaryTree> datas;
 
         public BinaryTree(Object data, BinaryTree left, BinaryTree right) {
             this.data = data;
