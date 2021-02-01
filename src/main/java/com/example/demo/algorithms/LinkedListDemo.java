@@ -1,6 +1,8 @@
 package com.example.demo.algorithms;
 
 
+import javax.sound.midi.Soundbank;
+
 public class LinkedListDemo {
 
 
@@ -17,6 +19,10 @@ public class LinkedListDemo {
         data2.add("c");
 
         data2.addList(data);
+
+        Node item = data2.get(3);
+        System.out.println(item);
+        System.out.println(data2.get(0));
 
 
     }
@@ -49,6 +55,19 @@ public class LinkedListDemo {
             list.first.pre = last;
             last.next = list.first;
             size += list.size;
+        }
+
+        public Node get(int index) {
+            int loop = 0;
+            Node current = first;
+            while (loop < index) {
+                current = current.next;
+                if (loop == index) {
+                    break;
+                }
+                loop++;
+            }
+            return current;
         }
 
     }
