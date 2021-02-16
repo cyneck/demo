@@ -12,7 +12,7 @@ public class LexicograhicPermutationSolution {
 //        int[] list = {1, 2, 3};
 //        Prim(list);
 
-        int[] A = {1, 2, 4, 3};
+        int[] A = {1, 3, 4, 2};
         int[] R = nextPermutation(A);
     }
 
@@ -31,16 +31,20 @@ public class LexicograhicPermutationSolution {
                 b = j;
                 break;
             }
-        int temp = A[a];
-        A[a] = A[b];
-        A[b] = temp;
-//        Swap(A, left, right);         //交换list[a],list[b]
-        int left = 0, right = 0;
         print(A);
-
-        Sort(A, a, n);
+        Swap(A, a, b);         //交换list[a],list[b]
+        print(A);
+        a++;
+        reverse(A, a, n - 1);
         print(A);
         return A;
+    }
+
+    // 剩余数组倒转
+    public static void reverse(int[] A, int start, int end) {
+        while (start < end) {
+            Swap(A, start++, end);
+        }
     }
 
     //计算全排列
@@ -70,6 +74,7 @@ public class LexicograhicPermutationSolution {
         print(list);
         return;
     }
+
 
     //将list区间[a,n]之间的数据由小到大排序
     static void Sort(int[] list, int a, int n) {
