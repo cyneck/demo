@@ -1,5 +1,9 @@
 package com.example.demo.algorithms;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * <p>Description: 字典序组合排序</p>
  *
@@ -12,7 +16,7 @@ public class LexicograhicPermutationSolution {
 //        int[] list = {1, 2, 3};
 //        Prim(list);
 
-        int[] A = {1, 3, 4, 2};
+        int[] A = {1, 5, 2, 3,4};
         int[] R = nextPermutation(A);
     }
 
@@ -35,17 +39,28 @@ public class LexicograhicPermutationSolution {
         Swap(A, a, b);         //交换list[a],list[b]
         print(A);
         a++;
+
+        ArrayList arraylist = new ArrayList();
+        for (int i = 0; i < A.length; i++) {
+            arraylist.add(A[i]); //存放元素
+        }
+
         reverse(A, a, n - 1);
         print(A);
+        List  list=arraylist.subList(a,n-1);
+        Collections.reverse(list); //使用方法进行逆序,验证
+        print(list);
         return A;
     }
 
     // 剩余数组倒转
     public static void reverse(int[] A, int start, int end) {
         while (start < end) {
-            Swap(A, start++, end);
+            start++;
+            Swap(A, start, end);
         }
     }
+
 
     //计算全排列
     static void Prim(int[] list) {
@@ -92,6 +107,15 @@ public class LexicograhicPermutationSolution {
     static void print(int[] list) {
         String result = "";
         for (int item : list) {
+            result += item;
+
+        }
+        System.out.println(result);
+    }
+
+    static void print(List<Object> list) {
+        String result = "";
+        for (Object item : list) {
             result += item;
 
         }

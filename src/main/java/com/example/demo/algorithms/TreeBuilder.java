@@ -29,7 +29,6 @@ public class TreeBuilder {
 //        preOrderTraverse1(treeNode);
 //        System.out.println("sum:" + sum + ",size:" + size);
         preOrderTraverse2(treeNode);
-        System.out.println("sum:" + sum + ",size:" + size);
     }
 
     // 递归
@@ -45,9 +44,11 @@ public class TreeBuilder {
     }
 
     // 栈实现先序遍历
-    public void preOrderTraverse2(TreeNode root) {
+    public int preOrderTraverse2(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;
+        int sum = 0;
+        int size = 0;
         while (node != null || !stack.empty()) {
             if (node != null) {
                 sum = sum + node.data;
@@ -60,6 +61,8 @@ public class TreeBuilder {
                 node = popNode.right;
             }
         }
+        System.out.println("sum:" + sum + ",size:" + size);
+        return sum/size;
     }
 
     // 层序遍历
