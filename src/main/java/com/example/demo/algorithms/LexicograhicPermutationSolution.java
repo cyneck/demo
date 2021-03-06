@@ -24,6 +24,7 @@ public class LexicograhicPermutationSolution {
     //给定一个数组，计算它的字典序的下一个排序
     static int[] nextPermutation(int[] A) {
         int n = A.length;
+
         int a = 0, b = 0;
         for (int i = n - 1; i > 0; --i) //从右往左，找出第一个左边小于右边的数，设为list[a]
         {
